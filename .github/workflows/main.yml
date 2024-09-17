@@ -1,0 +1,32 @@
+name: vuelos
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+       with:
+         java-version: '17'
+        
+     - name: build maven proyect
+       run: mvn clean install 
+
+     - name: Commit and push
+       uses: stefanzweifel/git-auto-commit-action@v5
+       with:
+         commit_message: Action vuelos completada
+         commit_user_name: Martin Villalobos "github-actions"
+         commit_user_email: martin.negocios1906@gmail.com to "github-actions"
+         commit_author: martinodark19
+
+     
+
+
+
+      
