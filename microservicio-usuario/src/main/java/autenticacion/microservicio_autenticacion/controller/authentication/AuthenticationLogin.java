@@ -5,12 +5,13 @@ import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import autenticacion.microservicio_autenticacion.dto.LoginRequestDto;
-import autenticacion.microservicio_autenticacion.dto.SignupRequest;
+import autenticacion.microservicio_autenticacion.dto.AutenticationDto.LoginRequestDto;
+import autenticacion.microservicio_autenticacion.dto.AutenticationDto.SignupRequest;
 import autenticacion.microservicio_autenticacion.entity.RoleEntity;
 import autenticacion.microservicio_autenticacion.entity.RoleEnum;
 import autenticacion.microservicio_autenticacion.entity.UserEntity;
@@ -126,5 +127,13 @@ public class AuthenticationLogin
             return ResponseEntity.status(404).body("Ha ocurrido un error interno al autenticar al usuario " + error);
         }
     }
+
+
+    @GetMapping("/prueba")
+    public ResponseEntity<String> testMethod()
+    {
+        return ResponseEntity.ok().body("el metodo funciona felicidades");
+    }
+
 
 }

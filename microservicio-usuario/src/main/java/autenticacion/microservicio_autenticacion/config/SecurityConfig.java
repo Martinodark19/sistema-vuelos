@@ -37,6 +37,8 @@ public class SecurityConfig
                     // Configurar los endpoints publicos
                     http.requestMatchers(HttpMethod.POST, "/signup").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/prueba").permitAll();
+
 
                     // Cofnigurar los endpoints privados
                     //http.requestMatchers(HttpMethod.POST, "/auth/post").hasAnyRole("ADMIN", "DEVELOPER");

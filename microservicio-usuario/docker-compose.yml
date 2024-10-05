@@ -1,0 +1,16 @@
+version: '3'
+services:
+  contenedor-usuario:
+    image: m-usuario-image4
+    container_name: contenedor-usuario
+    ports:
+      - "80:8080"
+    environment:
+      - DB_HOST=database-microservicio-usuario.cdom0kcks891.us-east-2.rds.amazonaws.com
+      - DB_PORT=3306                   
+      - DB_NAME=database-microservicio-usuario
+      - DB_USERNAME=admin               
+      - DB_PASSWORD=BLADEdark19
+
+
+

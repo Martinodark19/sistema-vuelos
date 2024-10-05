@@ -58,5 +58,4 @@ public class UserAuthenticationService
                 return "Ha ocurrido un error interno: " + error.getMessage();
             }
     }
-
 }

@@ -1,4 +1,4 @@
-package autenticacion.microservicio_autenticacion.dto;
+package autenticacion.microservicio_autenticacion.dto.AutenticationDto;
 
 import lombok.Data;
 
