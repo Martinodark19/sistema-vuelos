@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table("airports")
+
 public class Airport {
 
     @Id
