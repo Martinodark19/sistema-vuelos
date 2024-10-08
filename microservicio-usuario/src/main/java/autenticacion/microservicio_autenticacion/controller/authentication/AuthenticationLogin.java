@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import autenticacion.microservicio_autenticacion.dto.AutenticationDto.LoginRequestDto;
@@ -21,6 +22,7 @@ import autenticacion.microservicio_autenticacion.service.UserAuthenticationServi
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/user")
 public class AuthenticationLogin 
 {
     private UserAuthenticationService userAuthenticationService;
@@ -51,9 +53,7 @@ public class AuthenticationLogin
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) 
         {
-        return ResponseEntity
-            .badRequest()
-            .body("El usuario a registrar ya existe con el mismo email. Intente con uno que no haya sido creado");
+        return ResponseEntity.badRequest().body("El usuario a registrar ya existe con el mismo email. Intente con uno que no haya sido creado");
         }
 
         // encoding password 

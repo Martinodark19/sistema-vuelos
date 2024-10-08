@@ -1,4 +1,4 @@
-package vuelos.microservicio_vuelos.entity;
+package vuelos.microservicio_vuelos.dto;
 
 import java.time.LocalDateTime;
 
@@ -7,20 +7,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vuelos.microservicio_vuelos.entity.Flight.FlightStatus;
 
 @Data
 @NoArgsConstructor
-@Table("flights")
-public class Flight 
+public class FlightDto 
 {
-    @Id
-    private Integer idFlight;
-
     @NotNull
     @Size(min = 3, max = 100, message = "El origen debe tener entre 3 y 100 caracteres.")
     private String origin;
@@ -44,8 +38,4 @@ public class Flight
 
     @NotNull
     private FlightStatus flightStatus;
-
-    public enum FlightStatus {
-        SCHEDULED, CANCELLED, COMPLETED, IN_FLIGHT
-    }
 }
