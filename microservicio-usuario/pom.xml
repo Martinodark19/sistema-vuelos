@@ -87,6 +87,12 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+			<version>4.1.4</version> <!-- Añade la versión correcta aquí -->
+		</dependency>
+
 	</dependencies>
 
 	<build>
