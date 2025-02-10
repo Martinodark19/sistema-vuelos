@@ -1,6 +1,7 @@
 package vuelos.microservicio_vuelos.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,12 @@ public class FligthsController
     public FligthsController(FligthsService fligthsService)
     {
         this.fligthsService = fligthsService;
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<String> getUserInfo() 
+    {
+        return ResponseEntity.ok("Información del usuarioo biennn");
     }
 
     @PostMapping("createFlight")

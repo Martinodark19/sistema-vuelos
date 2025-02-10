@@ -24,7 +24,8 @@ public class JwtFilter implements WebFilter
 
     private final JwtUtils jwtUtils;
 
-    public JwtFilter(JwtUtils jwtUtils) {
+    public JwtFilter(JwtUtils jwtUtils) 
+    {
         this.jwtUtils = jwtUtils;
     }
 
@@ -32,9 +33,12 @@ public class JwtFilter implements WebFilter
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-
+        System.out.println("PASO POR EL JWT FILTER ");
+                                
         // Verificar la presencia del encabezado y su prefijo
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("DIO ERROR EN EL HEADER, REVISA");
+
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -51,11 +55,14 @@ public class JwtFilter implements WebFilter
                             .collect(Collectors.toList());
 
                     Authentication authentication = new UsernamePasswordAuthenticationToken(null, null, authorities);
+                    System.out.println("TODO DIO CORRECTAMENTE");
 
                     return chain.filter(exchange)
                             .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
                 })
                 .onErrorResume(e -> {
+                    System.out.println("paso por el onErrorResme");
+                    System.out.println(e);
                     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                     return exchange.getResponse().setComplete();
                 });

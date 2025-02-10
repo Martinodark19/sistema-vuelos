@@ -93,6 +93,18 @@
 			<version>4.1.4</version> <!-- Añade la versión correcta aquí -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    		<version>4.0.1</version>  
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			<version>4.1.3</version> <!-- Asegúrate de agregar la versión aquí -->
+		</dependency>
+
 	</dependencies>
 
 	<build>

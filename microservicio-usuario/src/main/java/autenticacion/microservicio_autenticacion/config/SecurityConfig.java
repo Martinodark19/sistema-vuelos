@@ -38,6 +38,10 @@ public class SecurityConfig
                     http.requestMatchers(HttpMethod.POST, "/user/signup").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/user/login").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/user/prueba").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/user/testingJWT").permitAll();
+
+
+                    
 
 
                     // Cofnigurar los endpoints privados

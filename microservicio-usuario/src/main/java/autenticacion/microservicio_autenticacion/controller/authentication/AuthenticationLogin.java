@@ -3,6 +3,7 @@ package autenticacion.microservicio_autenticacion.controller.authentication;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.hc.core5.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+import autenticacion.microservicio_autenticacion.config.utils.JwtUtils;
 import autenticacion.microservicio_autenticacion.dto.AutenticationDto.LoginRequestDto;
 import autenticacion.microservicio_autenticacion.dto.AutenticationDto.SignupRequest;
+import autenticacion.microservicio_autenticacion.dto.AutenticationDto.TokenDto;
 import autenticacion.microservicio_autenticacion.entity.RoleEntity;
 import autenticacion.microservicio_autenticacion.entity.RoleEnum;
 import autenticacion.microservicio_autenticacion.entity.UserEntity;
@@ -29,15 +34,18 @@ public class AuthenticationLogin
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private JwtUtils jwtUtils;
 
-
-    public AuthenticationLogin(UserAuthenticationService userAuthenticationService,UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder passwordEncoder)
+    public AuthenticationLogin(UserAuthenticationService userAuthenticationService,UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder passwordEncoder,JwtUtils jwtUtils)
     {
         this.userAuthenticationService = userAuthenticationService;
         this.userRepository = userRepository;
         this.roleRepository =roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
     }
+
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) 
@@ -133,6 +141,20 @@ public class AuthenticationLogin
     public ResponseEntity<String> testMethod()
     {
         return ResponseEntity.ok().body("el metodo funciona felicidades");
+    }
+
+        @PostMapping("/testingJWT")
+    public ResponseEntity<String> decodificando(@RequestBody TokenDto token)
+    {
+        try
+        {
+            DecodedJWT decodedJWT = jwtUtils.decodedJWT(token.getToken());
+            return ResponseEntity.ok().body(decodedJWT.getClaims().toString());
+        }
+        catch(Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("No tiene autorizacion para acceder a este recurso. ");
+        }
     }
 
 

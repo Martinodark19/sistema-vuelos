@@ -1,8 +1,8 @@
 package com.vuelos.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -25,16 +25,15 @@ public class SecurityConfig
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) 
     {
-        return http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable) // Usamos la API actualizada para deshabilitar CSRF
+        return http   
+        .csrf(ServerHttpSecurity.CsrfSpec::disable)
+        .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable) // Desactiva autenticación HTTP Basic
+        .formLogin(ServerHttpSecurity.FormLoginSpec::disable) // Desactiva autenticación por login form
                 .authorizeExchange(exchanges -> exchanges
-                    .pathMatchers("/user/login/**").permitAll()  // Permitir acceso sin token a rutas públicas
-                    .pathMatchers("/user/signup/**").permitAll()  // Permitir acceso sin token a rutas públicas
-                    .pathMatchers("/user/prueba/**").permitAll()  // Permitir acceso sin token a rutas públicas
-
-                    .anyExchange().authenticated()          // Requerir autenticación en todas las demás rutas
+                        .pathMatchers(HttpMethod.GET,"/flight/info").permitAll()
+                        .anyExchange().authenticated()
                 )
-                .addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)  // Añadimos el filtro JWT con su respectivo orden 
+                .addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
     }
 }
